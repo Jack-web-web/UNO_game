@@ -354,7 +354,7 @@ public:
         system("cls"); // 清屏（Windows系统使用system("cls")）
 
         // 创建游戏窗口
-        Mat gameWindow = Mat(600, 800, CV_8UC3, Scalar(0, 100, 0));
+        Mat gameWindow = Mat(600, 1200, CV_8UC3, Scalar(0, 100, 0));
 
         // 显示当前玩家
         string currentPlayerText = "now player: " ;
