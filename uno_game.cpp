@@ -121,7 +121,7 @@ private:
             text = "X";
         }
         else if (type == REVERSE) {
-            text = "↺";
+            text = "B";
         }
         else if (type == DRAW_TWO) {
             text = "+2";
@@ -351,23 +351,23 @@ public:
 
     // 显示游戏状态
     void displayGameState() {
-        system("clear"); // 清屏（Windows系统使用system("cls")）
+        system("cls"); // 清屏（Windows系统使用system("cls")）
 
         // 创建游戏窗口
         Mat gameWindow = Mat(600, 800, CV_8UC3, Scalar(0, 100, 0));
 
         // 显示当前玩家
-        string currentPlayerText = "当前玩家: " + players[currentPlayerIndex].getName();
+        string currentPlayerText = "now player: " + players[currentPlayerIndex].getName();
         putText(gameWindow, currentPlayerText, Point(300, 50), FONT_HERSHEY_SIMPLEX, 0.7, Scalar(255, 255, 255), 2);
 
         // 显示弃牌堆顶部的牌
-        putText(gameWindow, "弃牌堆", Point(350, 150), FONT_HERSHEY_SIMPLEX, 0.7, Scalar(255, 255, 255), 1);
+        putText(gameWindow, "throw away", Point(350, 150), FONT_HERSHEY_SIMPLEX, 0.7, Scalar(255, 255, 255), 1);
         Mat topCardImg = discardPile.back().getImage();
         Mat roi = gameWindow(Rect(360, 170, topCardImg.cols, topCardImg.rows));
         topCardImg.copyTo(roi);
 
         // 显示玩家的手牌
-        putText(gameWindow, "你的手牌", Point(350, 350), FONT_HERSHEY_SIMPLEX, 0.7, Scalar(255, 255, 255), 1);
+        putText(gameWindow, "in your hand", Point(350, 350), FONT_HERSHEY_SIMPLEX, 0.7, Scalar(255, 255, 255), 1);
 
         const vector<UnoCard>& playerHand = players[0].getHand();
         for (size_t i = 0; i < playerHand.size(); i++) {
@@ -381,10 +381,10 @@ public:
         }
 
         // 显示操作提示
-        putText(gameWindow, "按数字键选择要出的牌，按D键抽牌", Point(200, 550), FONT_HERSHEY_SIMPLEX, 0.7, Scalar(255, 255, 255), 1);
+        putText(gameWindow, "Press the number button to select the card you want to play, and press the D button to draw the card", Point(0, 550), FONT_HERSHEY_SIMPLEX, 0.4, Scalar(255, 255, 255), 1);
 
         // 显示窗口
-        imshow("UNO游戏", gameWindow);
+        imshow("UNO game", gameWindow);
         waitKey(100);
     }
 
@@ -599,6 +599,7 @@ public:
             clockwise = !clockwise;
             break;
 
+            {
         case UnoCard::DRAW_TWO:
             cout << "下一位玩家必须抽两张牌并跳过回合!" << endl;
             waitKey(1000);
@@ -619,7 +620,9 @@ public:
             // 跳过下一位玩家的回合
             this->nextPlayer();
             break;
+            }
 
+            {
         case UnoCard::WILD_COLOR:
             cout << "选择一种颜色: 1-红, 2-黄, 3-绿, 4-蓝" << endl;
             // 玩家选择颜色
@@ -651,7 +654,9 @@ public:
             }
             waitKey(1000);
             break;
+            }
 
+            {
         case UnoCard::WILD_DRAW_FOUR:
             cout << "下一位玩家必须抽四张牌并跳过回合!" << endl;
             waitKey(1000);
@@ -702,6 +707,7 @@ public:
             // 跳过下一位玩家的回合
             this->nextPlayer();
             break;
+            }
 
         default:
             // 数字牌，没有特殊效果
@@ -732,8 +738,8 @@ public:
     void run() {
         // 显示欢迎信息
         Mat welcomeWindow = Mat(300, 500, CV_8UC3, Scalar(0, 100, 0));
-        putText(welcomeWindow, "欢迎来到UNO游戏", Point(100, 100), FONT_HERSHEY_SIMPLEX, 1.0, Scalar(255, 255, 255), 2);
-        putText(welcomeWindow, "按任意键开始游戏...", Point(120, 200), FONT_HERSHEY_SIMPLEX, 0.7, Scalar(255, 255, 255), 1);
+        putText(welcomeWindow, "Welcome to UNO game", Point(100, 100), FONT_HERSHEY_SIMPLEX, 1.0, Scalar(255, 255, 255), 2);
+        putText(welcomeWindow, "Press any key to start the game...", Point(120, 200), FONT_HERSHEY_SIMPLEX, 0.7, Scalar(255, 255, 255), 1);
         imshow("UNO游戏", welcomeWindow);
         waitKey(0);
         destroyWindow("UNO游戏");
@@ -781,11 +787,11 @@ public:
     void showResult() {
         Mat resultWindow = Mat(300, 500, CV_8UC3, Scalar(0, 100, 0));
 
-        string resultText = players[currentPlayerIndex].getName() + "获胜!";
+        string resultText = players[currentPlayerIndex].getName() + "win!";
 
-        putText(resultWindow, "游戏结束", Point(150, 50), FONT_HERSHEY_SIMPLEX, 1.0, Scalar(255, 255, 255), 2);
+        putText(resultWindow, "Game over", Point(150, 50), FONT_HERSHEY_SIMPLEX, 1.0, Scalar(255, 255, 255), 2);
         putText(resultWindow, resultText, Point(150, 150), FONT_HERSHEY_SIMPLEX, 1.0, Scalar(255, 255, 255), 2);
-        putText(resultWindow, "按任意键退出...", Point(150, 250), FONT_HERSHEY_SIMPLEX, 0.7, Scalar(255, 255, 255), 1);
+        putText(resultWindow, "Press any key to exit...", Point(150, 250), FONT_HERSHEY_SIMPLEX, 0.7, Scalar(255, 255, 255), 1);
 
         imshow("游戏结果", resultWindow);
         waitKey(0);
