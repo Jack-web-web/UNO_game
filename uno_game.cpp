@@ -357,7 +357,19 @@ public:
         Mat gameWindow = Mat(600, 800, CV_8UC3, Scalar(0, 100, 0));
 
         // 显示当前玩家
-        string currentPlayerText = "now player: " + players[currentPlayerIndex].getName();
+        string currentPlayerText = "now player: " ;
+        if (players[currentPlayerIndex].getName() == "玩家") {
+            currentPlayerText += "player";
+        }
+        else if (players[currentPlayerIndex].getName() == "电脑1") {
+            currentPlayerText += "computer1";
+        }
+        else if (players[currentPlayerIndex].getName() == "电脑2") {
+            currentPlayerText += "computer2";
+        }
+        else if (players[currentPlayerIndex].getName() == "电脑3") {
+            currentPlayerText += "computer3";
+        }
         putText(gameWindow, currentPlayerText, Point(300, 50), FONT_HERSHEY_SIMPLEX, 0.7, Scalar(255, 255, 255), 2);
 
         // 显示弃牌堆顶部的牌
@@ -485,7 +497,8 @@ public:
     void computerTurn() {
         UnoPlayer& currentPlayer = players[currentPlayerIndex];
         UnoCard topCard = discardPile.back();
-
+        // 显示游戏状态
+        displayGameState();
         cout << currentPlayer.getName() << "的回合..." << endl;
         waitKey(1000);
 
@@ -787,8 +800,20 @@ public:
     void showResult() {
         Mat resultWindow = Mat(300, 500, CV_8UC3, Scalar(0, 100, 0));
 
-        string resultText = players[currentPlayerIndex].getName() + "win!";
-
+        string resultText = "";
+        if (players[currentPlayerIndex].getName() == "玩家") {
+            resultText += "player";
+        }
+        else if (players[currentPlayerIndex].getName() == "电脑1") {
+            resultText += "computer1";
+        }
+        else if (players[currentPlayerIndex].getName() == "电脑2") {
+            resultText += "computer2";
+        }
+        else if (players[currentPlayerIndex].getName() == "电脑3") {
+            resultText += "computer3";
+        }
+        resultText += " win!";
         putText(resultWindow, "Game over", Point(150, 50), FONT_HERSHEY_SIMPLEX, 1.0, Scalar(255, 255, 255), 2);
         putText(resultWindow, resultText, Point(150, 150), FONT_HERSHEY_SIMPLEX, 1.0, Scalar(255, 255, 255), 2);
         putText(resultWindow, "Press any key to exit...", Point(150, 250), FONT_HERSHEY_SIMPLEX, 0.7, Scalar(255, 255, 255), 1);
