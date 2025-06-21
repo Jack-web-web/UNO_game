@@ -750,7 +750,7 @@ public:
     // 运行游戏
     void run() {
         // 显示欢迎信息
-        Mat welcomeWindow = Mat(300, 500, CV_8UC3, Scalar(0, 100, 0));
+        Mat welcomeWindow = Mat(300, 600, CV_8UC3, Scalar(0, 100, 0));
         putText(welcomeWindow, "Welcome to UNO game", Point(100, 100), FONT_HERSHEY_SIMPLEX, 1.0, Scalar(255, 255, 255), 2);
         putText(welcomeWindow, "Press any key to start the game...", Point(120, 200), FONT_HERSHEY_SIMPLEX, 0.7, Scalar(255, 255, 255), 1);
         imshow("UNO游戏", welcomeWindow);
