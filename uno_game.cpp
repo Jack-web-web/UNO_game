@@ -393,7 +393,7 @@ public:
         }
 
         // 显示操作提示
-        putText(gameWindow, "Press the number button to select the card you want to play, and press the D button to draw the card", Point(0, 550), FONT_HERSHEY_SIMPLEX, 0.4, Scalar(255, 255, 255), 1);
+        putText(gameWindow, "Press the number button to select the card you want to play, and press the D button to draw the card", Point(0, 550), FONT_HERSHEY_SIMPLEX, 0.6, Scalar(255, 255, 255), 1);
 
         // 显示窗口
         imshow("UNO game", gameWindow);
